@@ -1,0 +1,90 @@
+<div class="card bg-dark text-white">
+  <div class="card-header">{{title}}</div>
+    <div class="card-body">
+      <form #clientForm="ngForm">
+
+        <div class="form-group row">
+          <label for="name" class="col-form-label col-2">NAME</label>
+          <div class="col-sm-6">
+            <input type="text" id="name" name="name" class="form-control"
+                   required
+                   minlength="4"
+                   #name="ngModel"
+                   [(ngModel)]="client.name">
+            <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+              <div *ngIf="name.errors?.['required']">
+                Name can't be empty
+              </div>
+              <div *ngIf="name.errors?.['minLength']">
+                Name must be 4 characters or more
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="lastName" class="col-form-label col-2">LAST NAME</label>
+          <div class="col-sm-6">
+            <input type="text" id="lastName" name="lastName" class="form-control"
+                   required
+                   minlength="4"
+                   #lastName="ngModel"
+                   [(ngModel)]="client.lastName">
+            <div class="alert alert-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+              <div *ngIf="lastName.errors?.['required']">
+                Last name can't be empty
+              </div>
+              <div *ngIf="lastName.errors?.['minLength']">
+                Last must be 4 characters or more
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="email" class="col-form-label col-2">EMAIL</label>
+          <div class="col-sm-6">
+            <input type="email" id="email" name="email" class="form-control"
+                   required
+                   email
+                   minlength="4"
+                   #email="ngModel"
+                   [(ngModel)]="client.email">
+            <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+              <div *ngIf="email.errors?.['minLength']">
+                Email must be 4 characters or more
+              </div>
+              <div *ngIf="email.errors?.['required']">
+                Email can't be empty
+              </div>
+              <div *ngIf="email.errors?.['email']">
+                Email format not valid
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button *ngIf="!client.id else elseBlock"
+                    class="btn btn-primary"
+                    role="button"
+                    [disabled]="!clientForm.form.valid"
+                    (click)="create()">
+              CREATE
+            </button>
+            <ng-template #elseBlock>
+              <button class="btn btn-primary"
+                      role="button"
+                      [disabled]="!clientForm.form.valid"
+                      (click)="update()">
+                EDIT
+              </button>
+            </ng-template>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+</div>
